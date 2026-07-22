@@ -6,6 +6,7 @@ Artwork panel widget.
 """
 
 from pathlib import Path
+from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import filedialog
 
@@ -26,6 +27,7 @@ class ArtworkPanel(tk.Frame):
 
         self.panel_number = panel_number
         self.image_path = None
+        self.photo = None
 
         title = tk.Label(
             self,
@@ -62,6 +64,15 @@ class ArtworkPanel(tk.Frame):
 
         self.image_path = filename
 
+        image = Image.open(filename)
+
+        image.thumbnail((420, 260))
+
+        self.photo = ImageTk.PhotoImage(image)
+
         self.preview.config(
-            text=Path(filename).name
+            image=self.photo,
+            text=""
         )
+
+        self.preview.image = self.photo
