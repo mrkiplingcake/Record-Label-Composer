@@ -27,5 +27,11 @@ Next Release
 - Precision cutter guides
 - Project save/load
 
-Built by James
-Developed with ChatGPT
+## Credits
+
+Record Label Composer is a collaborative project created by:
+
+- mrkiplingcake – Concept, workflow design, testing, feature planning and project direction.
+- OpenAI ChatGPT – Software architecture, programming, documentation and technical guidance.
+
+This project exists because of the collaboration between human experience and AI-assisted software development.
