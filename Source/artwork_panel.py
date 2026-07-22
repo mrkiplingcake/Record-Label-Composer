@@ -37,17 +37,30 @@ class ArtworkPanel(tk.Frame):
         )
         title.pack(pady=(20, 10))
 
-        self.preview = tk.Label(
-            self,
-            text="Double-click here\nto load artwork",
-            justify="center",
-            font=("Segoe UI", 10),
-            bg=PANEL_BACKGROUND,
-        )
-        self.preview.pack(expand=True, fill="both", padx=20, pady=20)
+        self.canvas = tk.Canvas(
+    self,
+    bg=PANEL_BACKGROUND,
+    highlightthickness=0
+)
+
+        self.canvas.pack(
+    expand=True,
+    fill="both",
+    padx=20,
+    pady=20
+)
+
+        self.canvas.create_text(
+    200,
+    130,
+    text="Double-click here\nto load artwork",
+    justify="center",
+    fill="white",
+    font=("Segoe UI", 10),
+)
 
         self.bind("<Double-Button-1>", self.load_artwork)
-        self.preview.bind("<Double-Button-1>", self.load_artwork)
+        self.canvas.bind("<Double-Button-1>", self.load_artwork)
 
     def load_artwork(self, event=None):
 
@@ -70,9 +83,12 @@ class ArtworkPanel(tk.Frame):
 
         self.photo = ImageTk.PhotoImage(image)
 
-        self.preview.config(
-            image=self.photo,
-            text=""
+        self.canvas.delete("all")
+
+        self.canvas.create_image(
+            200,
+            130,
+            image=self.photo
         )
 
-        self.preview.image = self.photo
+        self.canvas.image = self.photo
