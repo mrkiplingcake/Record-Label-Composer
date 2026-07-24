@@ -6,7 +6,12 @@ geometry.py
 Geometry helper functions used throughout the application.
 """
 
-from constants import WORKING_DIAMETER_MM, WORKSPACE_DIAMETER_MM
+from constants import (
+    LABEL_DIAMETER_MM,
+    SAFE_DIAMETER_MM,
+    WORKING_DIAMETER_MM,
+    WORKSPACE_DIAMETER_MM,
+)
 
 
 class LabelGeometry:
@@ -37,3 +42,15 @@ class LabelGeometry:
     def get_working_radius_pixels(canvas):
         """Returns the working radius in pixels."""
         return LabelGeometry.get_working_diameter_pixels(canvas) / 2
+
+    @staticmethod
+    def get_cut_radius_pixels(canvas):
+        """Returns the cut radius in pixels."""
+        pixels_per_mm = LabelGeometry.get_workspace_pixels_per_mm(canvas)
+        return (LABEL_DIAMETER_MM * pixels_per_mm) / 2
+
+    @staticmethod
+    def get_safe_radius_pixels(canvas):
+        """Returns the safe radius in pixels."""
+        pixels_per_mm = LabelGeometry.get_workspace_pixels_per_mm(canvas)
+        return (SAFE_DIAMETER_MM * pixels_per_mm) / 2

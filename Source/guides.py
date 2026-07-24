@@ -36,7 +36,7 @@ class LabelGuides:
         )
 
         # Cut guide (100 mm)
-        cut = radius * (100 / 104)
+        cut = LabelGeometry.get_cut_radius_pixels(canvas)
 
         canvas.create_oval(
             centre_x - cut,
@@ -48,7 +48,7 @@ class LabelGuides:
         )
 
         # Safe area (95 mm)
-        safe = radius * (95 / 104)
+        safe = LabelGeometry.get_safe_radius_pixels(canvas)
 
         canvas.create_oval(
             centre_x - safe,
