@@ -8,6 +8,7 @@ guides.py
 Functions for drawing record label guides.
 """
 from geometry import LabelGeometry
+from constants import BLEED_COLOUR, CUT_COLOUR, SAFE_COLOUR
 
 class LabelGuides:
     """Draws the record label guides."""
@@ -29,32 +30,32 @@ class LabelGuides:
             centre_y - radius,
             centre_x + radius,
             centre_y + radius,
-            outline="red",
+            outline=BLEED_COLOUR,
             dash=(6, 4),
             tags=("label",)
         )
 
-        # Cut guide
-        cut = radius * 0.96
+        # Cut guide (100 mm)
+        cut = radius * (100 / 104)
 
         canvas.create_oval(
             centre_x - cut,
             centre_y - cut,
             centre_x + cut,
             centre_y + cut,
-            outline="white",
+            outline=CUT_COLOUR,
             tags=("label",)
         )
 
-        # Safe area
-        safe = radius * 0.82
+        # Safe area (95 mm)
+        safe = radius * (95 / 104)
 
         canvas.create_oval(
             centre_x - safe,
             centre_y - safe,
             centre_x + safe,
             centre_y + safe,
-            outline="lime",
+            outline=SAFE_COLOUR,
             dash=(3, 3),
             tags=("label",)
         )

@@ -32,7 +32,7 @@ ABOUT_TEXT = (
 # Record label guide colours
 
 BLEED_COLOUR = "#ff4040"
-CUT_COLOUR = "#ffffff"
+CUT_COLOUR = "#1e05fc"
 SAFE_COLOUR = "#00ff80"
 CENTRE_HOLE_COLOUR = "#ffffff"
 
