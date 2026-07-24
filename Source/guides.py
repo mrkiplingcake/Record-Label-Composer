@@ -30,6 +30,7 @@ class LabelGuides:
             centre_y + radius,
             outline="red",
             dash=(6, 4),
+            tags=("label",)
         )
 
         # Cut guide
@@ -41,6 +42,7 @@ class LabelGuides:
             centre_x + cut,
             centre_y + cut,
             outline="white",
+            tags=("label",)
         )
 
         # Safe area
@@ -53,6 +55,7 @@ class LabelGuides:
             centre_y + safe,
             outline="lime",
             dash=(3, 3),
+            tags=("label",)
         )
 
         # Centre hole
@@ -65,4 +68,5 @@ class LabelGuides:
             centre_y + hole,
             fill="white",
             outline="black",
+            tags=("label",)
         )

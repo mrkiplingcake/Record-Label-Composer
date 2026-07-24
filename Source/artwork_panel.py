@@ -92,6 +92,10 @@ class ArtworkPanel(tk.Frame):
 
         self.photo = ImageTk.PhotoImage(image)
 
+        self.display_image()
+
+    def display_image(self):
+
         self.canvas.delete("all")
 
         self.canvas.update_idletasks()
@@ -101,16 +105,20 @@ class ArtworkPanel(tk.Frame):
 
         centre_x = canvas_width // 2
         centre_y = canvas_height // 2
+        self.image_x = centre_x
+        self.image_y = centre_y
 
-        self.canvas.create_image(
-            centre_x,
-            centre_y,
-            image=self.photo
+        self.image_id = self.canvas.create_image(
+        centre_x,
+        centre_y,
+        image=self.photo,
+        tags=("label", "artwork")
     )
 
         self.canvas.image = self.photo
 
         LabelGuides.draw_guides(self.canvas)
+
     def start_drag(self, event):
         """Remember where the mouse started."""
 
@@ -119,6 +127,16 @@ class ArtworkPanel(tk.Frame):
 
 
     def drag_image(self, event):
-        """Drag the artwork."""
+        """Drag the label."""
 
+        dx = event.x - self.drag_start_x
+        dy = event.y - self.drag_start_y
+
+        self.canvas.move("label", dx, dy)
+
+        self.image_x += dx
+        self.image_y += dy
+
+        self.drag_start_x = event.x
+        self.drag_start_y = event.y
         print("Dragging...")

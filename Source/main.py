@@ -1,6 +1,6 @@
 """
 Record Label Composer
-Build 002 - Workbench
+Build 004 - Workbench
 
 main.py
 Application entry point.
