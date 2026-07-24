@@ -12,6 +12,7 @@ from tkinter import filedialog
 
 from constants import PANEL_BACKGROUND, PANEL_BORDER, WORKING_DIAMETER_MM
 from guides import LabelGuides
+from geometry import LabelGeometry
 
 
 class ArtworkPanel(tk.Frame):
@@ -105,10 +106,12 @@ class ArtworkPanel(tk.Frame):
         canvas_width = self.canvas.winfo_width()
         canvas_height = self.canvas.winfo_height()
 
-        guide_radius = LabelGuides.get_working_radius(self.canvas)
-        guide_diameter = guide_radius * 2
+        guide_radius = LabelGeometry.get_working_radius_pixels(self.canvas)
 
-        image.thumbnail((int(guide_diameter), int(guide_diameter)))
+        image.thumbnail(
+            (int(guide_radius * 2), int(guide_radius * 2)),
+            Image.Resampling.LANCZOS
+        )
 
         self.photo = ImageTk.PhotoImage(image)
 
