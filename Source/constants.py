@@ -32,3 +32,16 @@ ABOUT_TEXT = (
     f"Build {BUILD} – {BUILD_NAME}\n\n"
     f"{APP_TAGLINE}"
 )
+# Record label guide colours
+
+BLEED_COLOUR = "#ff4040"
+CUT_COLOUR = "#ffffff"
+SAFE_COLOUR = "#00ff80"
+CENTRE_HOLE_COLOUR = "#ffffff"
+
+# Record label geometry
+
+LABEL_DIAMETER_MM = 100
+BLEED_MM = 2
+SAFE_MARGIN_MM = 5
+SPINDLE_HOLE_MM = 7
