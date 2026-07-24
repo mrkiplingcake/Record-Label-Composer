@@ -10,7 +10,7 @@ from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import filedialog
 
-from constants import PANEL_BACKGROUND, PANEL_BORDER
+from constants import PANEL_BACKGROUND, PANEL_BORDER, WORKING_DIAMETER_MM
 from guides import LabelGuides
 
 
@@ -28,6 +28,7 @@ class ArtworkPanel(tk.Frame):
 
         self.panel_number = panel_number
         self.image_path = None
+        self.original_image = None
         self.photo = None
 
         self.image_x = 0
@@ -86,11 +87,7 @@ class ArtworkPanel(tk.Frame):
 
         self.image_path = filename
 
-        image = Image.open(filename)
-
-        image.thumbnail((420, 260))
-
-        self.photo = ImageTk.PhotoImage(image)
+        self.original_image = Image.open(filename)
 
         self.display_image()
 
@@ -99,6 +96,21 @@ class ArtworkPanel(tk.Frame):
         self.canvas.delete("all")
 
         self.canvas.update_idletasks()
+
+        if self.original_image is None:
+            return
+
+        image = self.original_image.copy()
+
+        canvas_width = self.canvas.winfo_width()
+        canvas_height = self.canvas.winfo_height()
+
+        guide_radius = LabelGuides.get_working_radius(self.canvas)
+        guide_diameter = guide_radius * 2
+
+        image.thumbnail((int(guide_diameter), int(guide_diameter)))
+
+        self.photo = ImageTk.PhotoImage(image)
 
         canvas_width = self.canvas.winfo_width()
         canvas_height = self.canvas.winfo_height()

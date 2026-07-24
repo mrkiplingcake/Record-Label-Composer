@@ -12,6 +12,15 @@ class LabelGuides:
     """Draws the record label guides."""
 
     @staticmethod
+    def get_working_radius(canvas):
+        """Returns the working radius used for the label guides."""
+        width = canvas.winfo_width()
+        height = canvas.winfo_height()
+
+        return min(width, height) * 0.38
+     
+
+    @staticmethod
     def draw_guides(canvas):
 
         width = canvas.winfo_width()
@@ -20,7 +29,7 @@ class LabelGuides:
         centre_x = width / 2
         centre_y = height / 2
 
-        radius = min(width, height) * 0.38
+        radius = LabelGuides.get_working_radius(canvas)
 
         # Bleed guide
         canvas.create_oval(
