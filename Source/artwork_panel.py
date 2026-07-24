@@ -70,8 +70,7 @@ class ArtworkPanel(tk.Frame):
 
         self.bind("<Double-Button-1>", self.load_artwork)
         self.canvas.bind("<Double-Button-1>", self.load_artwork)
-        self.canvas.bind("<Button-1>", self.start_drag)
-        self.canvas.bind("<B1-Motion>", self.drag_image)
+        
 
     def load_artwork(self, event=None):
 
@@ -129,6 +128,10 @@ class ArtworkPanel(tk.Frame):
         image=self.photo,
         tags=("label", "artwork")
     )
+        self.canvas.tag_bind("artwork", "<Button-1>", self.start_drag)
+        self.canvas.tag_bind("artwork", "<B1-Motion>", self.drag_image)
+        self.canvas.tag_bind("artwork", "<Enter>", lambda e: self.canvas.config(cursor="fleur"))
+        self.canvas.tag_bind("artwork", "<Leave>", lambda e: self.canvas.config(cursor=""))
 
         self.canvas.image = self.photo
 
