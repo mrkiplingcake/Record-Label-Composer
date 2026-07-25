@@ -7,37 +7,75 @@ Printing engine.
 """
 
 from print_layout import PrintLayout
+from PIL import ImageOps
 import win32print
 import win32ui
-from PIL import ImageGrab
+from PIL import Image
+from PIL import ImageDraw
 
 
 class PrintEngine:
     """Rendering engine for preview, printing and PDF export."""
 
-    def __init__(self, canvas):
+    def __init__(self, canvas, artwork_images):
         self.canvas = canvas
+        self.artwork_images = artwork_images
 
-    def get_canvas_image(self):
-        """Capture the canvas as a PIL image."""
+    def create_page(self):
+        """Create a blank A4 page."""
 
-        self.canvas.update()
+        page = Image.new(
+            "RGB",
+            (2480, 3508),
+            "white"
+        )
+        draw = ImageDraw.Draw(page)
 
-        x = self.canvas.winfo_rootx()
-        y = self.canvas.winfo_rooty()
+        label_positions = PrintLayout.get_label_centres_mm()
 
-        width = self.canvas.winfo_width()
-        height = self.canvas.winfo_height()
+        x, y = label_positions[0]
 
-        return ImageGrab.grab(
-            bbox=(
-                x,
-                y,
-                x + width,
-                y + height
-            )
-        )   
+        print(f"x = {x}")
+        print(f"y = {y}")
 
+        print(label_positions)
+        print()
+
+        print("PrintEngine can see:")
+
+        for i, panel in enumerate(self.artwork_images):
+            print(f"Panel {i + 1}:", panel.original_image)
+
+ #        draw.ellipse(
+ #           (
+ #               50,
+ #               50,
+ #               1230,
+ #               1230
+ #           ),
+ #           outline="red",
+ #           width=6
+ #       )
+
+        image = self.artwork_images[0].original_image.copy()
+
+        page.paste(
+            image,
+            (50, 50)
+        )
+        draw.ellipse(
+            (
+                1300,
+                100,
+                2480,
+                1281
+            ),
+            outline="red",
+            width=6
+        )
+
+        return page
+    
     def draw_page(self):
         """Draw the paper."""
 

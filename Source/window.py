@@ -74,7 +74,7 @@ class MainWindow:
         )
         self.workspace.pack(expand=True, fill="both", padx=12, pady=8)
 
-        create_panel_grid(self.workspace)
+        self.artwork_panels = create_panel_grid(self.workspace)
 
     def _create_statusbar(self):
         self.status = tk.Label(
@@ -91,4 +91,7 @@ class MainWindow:
 
     def show_print_preview(self):
         """Open the print preview window."""
-        PrintPreview(self.root)
+        PrintPreview(
+        self.root,
+        self.artwork_panels,
+    )

@@ -16,8 +16,17 @@ from print_engine import PrintEngine
 class PrintPreview(tk.Toplevel):
     """Print preview window."""
 
-    def __init__(self, parent):
+    def __init__(self, parent, artwork_panels):
         super().__init__(parent)
+
+        self.artwork_panels = artwork_panels
+
+        print("Artwork panels:", len(self.artwork_panels))
+
+        for i, panel in enumerate(self.artwork_panels):
+            print(f"Panel {i + 1} image path:", panel.image_path)
+            print(f"Panel {i + 1} original image:", panel.original_image)
+            print()
 
         self.title("Print Preview")
 
@@ -39,7 +48,10 @@ class PrintPreview(tk.Toplevel):
         bg="#606060",
         highlightthickness=0,
     )
-        self.engine = PrintEngine(self.canvas)
+        self.engine = PrintEngine(
+            self.canvas,
+            self.artwork_panels,
+        )
 
         self.canvas.pack(fill="both", expand=True)
 
@@ -92,8 +104,6 @@ class PrintPreview(tk.Toplevel):
             )
 
     def print_preview(self):
-        image = self.engine.get_canvas_image()
-
-        image.save("preview.png")
-
-        print("Saved preview.png")
+        page = self.engine.create_page()
+        page.save("test_page.png")
+        
