@@ -21,6 +21,8 @@ from version import application_title
 from panels import create_panel_grid
 from about import show_about
 
+from print_preview import PrintPreview
+
 
 class MainWindow:
     """Main application window."""
@@ -41,6 +43,10 @@ class MainWindow:
         menubar = tk.Menu(self.root)
 
         file_menu = tk.Menu(menubar, tearoff=0)
+        file_menu.add_command(
+        label="Print Preview",
+        command=self.show_print_preview,
+        )
         file_menu.add_command(label="Exit", command=self.root.quit)
         menubar.add_cascade(label="File", menu=file_menu)
 
@@ -82,3 +88,7 @@ class MainWindow:
 
     def run(self):
         self.root.mainloop()
+
+    def show_print_preview(self):
+        """Open the print preview window."""
+        PrintPreview(self.root)
